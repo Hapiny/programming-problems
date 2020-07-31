@@ -26,12 +26,13 @@ public:
         }
         max_len = dp_max_lens[max_idx];
         vector<int> lis(max_len, 0);
-        int count = max_len - 1;
+        int count = max_len - 1, last_seen_idx = max_idx;
         lis[count] = nums[max_idx];
         while (count != 0 && max_idx >= 0) {
             max_idx--;
-            if (nums[max_idx] < lis[count]) {
+            if (nums[max_idx] < lis[count] && abs(dp_max_lens[max_idx] - dp_max_lens[last_seen_idx]) == 1) {
                 lis[--count] = nums[max_idx];
+                last_seen_idx = max_idx;
             }
         }
         return make_tuple(max_len, lis);
@@ -41,6 +42,7 @@ public:
 int main() {
     Solution solver;
     vector<int> nums = { 10, 9, 2, 5, 3, 7, 101, 18 };
+//    vector<int> nums = { 3, 4, -1, 5, 8, 2, 3, 12, 7, 9, 10 };
     int max_len;
     vector<int> lis;
     tie(max_len, lis) = solver.find_lis(nums);
