@@ -9,7 +9,7 @@ typedef tuple<int, vector<int> > LIS;
 class Solution {
 public:
     void lower_bound(vector<int>& sorted_vals, int start, int end, int value) {
-        int cur_idx = start + (end - start) / 2;
+        int cur_idx = (start + end) / 2;
         int cur_val = sorted_vals[cur_idx];
         while (start != end) {
             if (cur_val == value) {
@@ -24,7 +24,7 @@ public:
                 start = end;
             }
 
-            cur_idx = start + (end - start) / 2;
+            cur_idx = (start + end) / 2;
             cur_val = sorted_vals[cur_idx];
         }
         if (cur_val > value) {
